@@ -7,12 +7,14 @@ import Item from '../Item';
 import DetailedItem from '../DetailedItem'; 
 import backgroundImage from '../assets/old-cabell.jpg';
 import '../css/Home.css';
+import ProfileModal from './ProfileModal';
 
 const Home = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
-  const { currentUser } = useAuth(); 
+  const { currentUser, userData } = useAuth();
   const navigate = useNavigate(); 
+  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
@@ -49,7 +51,6 @@ const Home = () => {
 
   const handleUpload = async () => {
     try {
-      // await signOut(auth); 
       navigate('/upload');
     } catch (error) {
       console.error('Failed to render:', error);
@@ -93,6 +94,7 @@ const Home = () => {
 
       <div>
         <button onClick={handleUpload}>Add Item</button>
+        <button onClick={() => setShowProfile(true)}>Profile</button> 
         <button onClick={handleLogout}>Log Out</button>
       </div>
 
@@ -103,6 +105,8 @@ const Home = () => {
           <Item key={item.id} {...item} onClick={() => handleSelectItem(item)} />
         ))
       )}
+
+      <ProfileModal showProfile={showProfile} handleClose={() => setShowProfile(false)} />
     </div>
   );
 };

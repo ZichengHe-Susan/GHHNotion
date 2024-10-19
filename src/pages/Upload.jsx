@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { getDocs, collection, addDoc } from 'firebase/firestore';
+import { getDocs, collection, addDoc , updateDoc, arrayUnion, doc} from 'firebase/firestore';
+import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const AddItem = () => {
 
-
+  const { currentUser, userData } = useAuth();
   const [newItemName, setItemName] = useState("")
   const [newItemPrice, setItemPrice] = useState(0)
   const [isItemAvailable, setIsItemAvailable] = useState(false)
+  const navigate = useNavigate(); 
+
 
 
   // const [selectedFile, setSelectedFile] = useState(null);
@@ -58,17 +64,30 @@ const AddItem = () => {
   //     alert('Error uploading file');
   //   }
   // };
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/login');
+    }
+  }, [currentUser, navigate]);
 
   const itemsCollectionRef = collection(db, "items");
   const onSubmitItem = async () => {
     try {
-      await addDoc(itemsCollectionRef, {
-        name: newItemName, 
+      const newItemRef = await addDoc(itemsCollectionRef, {
+        name: newItemName,
         price: newItemPrice,
         isAvailable: isItemAvailable,
+        seller: currentUser.uid,
+        timestamp: new Date(),
       });
 
-      // getItemsList();
+      const userDocRef = doc(db, "users", currentUser.uid);
+
+      await updateDoc(userDocRef, {
+        items: arrayUnion(newItemRef.id), 
+      });
+
+
     } catch (err) {
       console.error(err);
     }
