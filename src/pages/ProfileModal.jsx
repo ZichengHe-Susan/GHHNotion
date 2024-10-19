@@ -123,25 +123,35 @@ const ProfileModal = ({ showProfile, handleClose }) => {
         </Button>
         </div>
 
-        
-
-        <div className="items-container">
+        <div className="items-wrapper">
         <Typography className="listed-items-title">
           Your Listed Items:
         </Typography>
+        <div className="items-container">
+        
         {userItems.length > 0 ? (
             userItems.map((item) => (
+                
               <div key={item.id} className="itemBox">
                 <div className="textContainer">
                   <h1 className="itemTitle">{item.name}</h1>
                   <p className="itemPrice">Price: ${item.price}</p>
                 </div>
+                {item.imageURL ? (
+                <div className="imageContainer">
+                  <img src={item.imageURL} alt={item.name} className="itemImage" />
+                </div>
+              ) : (
+                <p>No image available</p>
+              )}
               </div>
+             
             ))
           
           ) : (
             <Typography>No items listed yet.</Typography>
           )}
+        </div>
         </div>
 
 
