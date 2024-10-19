@@ -1,0 +1,58 @@
+.home-header {
+    position: relative;
+    background-image: url('../assets/alderman-and-peabody.jpg');
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(20px + 2vmin);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.home-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+.home-content, .home-header h1 {
+    position: relative;
+    z-index: 1;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+.home {
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.item, .detailed-item {
+    transition: transform 0.3s ease-in-out;
+}
+
+.detailed-item {
+    transform: translateY(-100%);
+}
+
+@media (max-width: 768px) {
+    .item {
+        flex: 1 1 48%;
+    }
+}
+
+@media (max-width: 480px) {
+    .item {
+        flex: 1 1 100%;
+    }
+}
+
+  
