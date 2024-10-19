@@ -43,32 +43,48 @@
     max-height: 200px; /* Limit height */
     object-fit: cover;
   }
+
+ 
   
+  .button-group{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+      
   .addToCartButton {
     color: #333;
     border: none;
-    padding: 8px 12px; /* Slightly smaller padding */
+    padding: 4px;
+    min-width: 100px;
+    max-width: 100px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 5px; /* Less margin for tighter layout */
-    font-size: 0.8em; /* Smaller text */
+    margin-top: 5px; 
+    width: 100%; 
+    transition: background-color 0.3s, color 0.3s; 
   }
+  
   
   .addToCartButton:hover {
-    background-color: #0056b3;
-  }
-  
-  .deleteButton {
     color: #fff;
-    background-color: #dc3545; /* Bootstrap's danger color */
+    background-color: #0056b3;
+    cursor: pointer;
+  }
+  .deleteButton {
+    color: #333;
     border: none;
-    padding: 8px;
+    padding: 4px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 5px; /* Space between buttons */
-    width: 100%; /* Same width as the Add to Cart button */
+    min-width: 100px;
+    max-width: 100px;
+    margin-top: 5px; 
+    width: 100%; 
+    transition: background-color 0.3s, color 0.3s; 
   }
   
   .deleteButton:hover {
-    background-color: #c82333; /* Darker red on hover */
+    color: #fff;
+    background-color: #c82333; 
   }
+}

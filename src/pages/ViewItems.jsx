@@ -67,11 +67,17 @@ const ViewItems = () => {
           <div className="textContainer">
             <h1 className="itemTitle">{item.name}</h1>
             <p className="itemPrice">Price: ${item.price}</p>
-            <Link 
-              to="#" 
+            <div className="button-group">
+            <button
               className="addToCartButton" 
-              onClick={() => addToCart(item)} // Handle click to add to cart
-            >Add to Cart</Link>
+              onClick={() => addToCart(item)} 
+            >Add to Cart</button>
+            {currentUser && currentUser.uid === item.seller && ( 
+            <button className="deleteButton" onClick={() => deleteItem(item.id)}>
+              Delete Item
+            </button>
+          )}
+          </div>
           </div>
           {item.imageURL ? (
             <div className="imageContainer">
@@ -83,11 +89,7 @@ const ViewItems = () => {
           {/* <button className="addToCartButton" onClick={() => addToCart(item)}>
             Add to Cart
           </button> */}
-          {currentUser && currentUser.uid === item.seller && ( // Check if current user is the seller
-            <button className="deleteButton" onClick={() => deleteItem(item.id)}>
-              Delete Item
-            </button>
-          )}
+          
         </div>
       ))}
     </div>
