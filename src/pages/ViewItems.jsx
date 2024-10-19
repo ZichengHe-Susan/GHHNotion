@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase'; 
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { ref, deleteObject } from 'firebase/storage';
+
 
 import '../css/ViewItems.css';
 
@@ -35,6 +38,28 @@ const ViewItems = () => {
     alert(`${item.name} has been added to your cart!`);
   };
 
+  const { currentUser, userData } = useAuth();
+
+  const deleteItem = async (itemId, imageURL) => {
+    const itemDocRef = doc(db, "items", itemId);
+  
+    // Create a reference to the file to delete
+    const imageRef = ref(storage, imageURL);
+  
+    try {
+      // Delete the image from storage
+      await deleteObject(imageRef);
+      console.log("Image deleted successfully");
+  
+      // Delete the item from Firestore
+      await deleteDoc(itemDocRef);
+      setItemsList(itemsList.filter(item => item.id !== itemId)); // Remove the item from the local state
+      alert("Item deleted successfully.");
+    } catch (err) {
+      console.error("Error deleting item: ", err);
+    }
+  };
+
   return (
     <div className="container">
       {itemsList.map((item) => (
@@ -58,6 +83,11 @@ const ViewItems = () => {
           {/* <button className="addToCartButton" onClick={() => addToCart(item)}>
             Add to Cart
           </button> */}
+          {currentUser && currentUser.uid === item.seller && ( // Check if current user is the seller
+            <button className="deleteButton" onClick={() => deleteItem(item.id)}>
+              Delete Item
+            </button>
+          )}
         </div>
       ))}
     </div>
