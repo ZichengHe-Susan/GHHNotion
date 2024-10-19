@@ -75,7 +75,7 @@ const AddItem = () => {
   const itemsCollectionRef = collection(db, "items");
   const onSubmitItem = async () => {
     try {
-      const newItemRef = await addDoc(itemsCollectionRef, {
+      await addDoc(itemsCollectionRef, {
         name: newItemName,
         price: newItemPrice,
         isAvailable: isItemAvailable,
@@ -84,11 +84,11 @@ const AddItem = () => {
         timestamp: new Date(),
       });
 
-      const userDocRef = doc(db, "users", currentUser.uid);
+      // const userDocRef = doc(db, "users", currentUser.uid);
 
-      await updateDoc(userDocRef, {
-        items: arrayUnion(newItemRef.id), 
-      });
+      // await updateDoc(userDocRef, {
+      //   items: arrayUnion(newItemRef.id), 
+      // });
 
 
     } catch (err) {

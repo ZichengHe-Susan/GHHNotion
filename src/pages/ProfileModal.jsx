@@ -1,30 +1,68 @@
-import React, { useState,useEffect } from 'react';
-import { Modal, Box, Typography, Button } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Modal, Typography, Button} from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
+import { db } from '../firebase'; 
+import { getDocs, collection } from 'firebase/firestore';
+import '../css/profile.scss'; 
+import CloseIcon from '@mui/icons-material/Close';
 
 const ProfileModal = ({ showProfile, handleClose }) => {
   const [open, setOpen] = useState(showProfile);
   const { currentUser, userData } = useAuth();
-
+  const [userItems, setUserItems] = useState([]);
 
   useEffect(() => {
     setOpen(showProfile);
   }, [showProfile]);
 
-  if(!currentUser) {
-    return;
+  useEffect(() => {
+    if (currentUser) {
+      const fetchUserItems = async () => {
+        try {
+          const itemsCollectionRef = collection(db, 'items');
+          const data = await getDocs(itemsCollectionRef);
+
+          const filteredItems = data.docs
+            .map((doc) => ({ ...doc.data(), id: doc.id }))
+            .filter((item) => item.seller === currentUser.uid);
+
+          setUserItems(filteredItems);
+        } catch (err) {
+          console.error('Error fetching user items:', err);
+        }
+      };
+
+      fetchUserItems();
+    }
+  }, [currentUser]);
+
+  if (!currentUser || !userData) {
+    return null;
   }
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+  const calculateJoinedDuration = (createdAt) => {
+    const now = new Date();
+    const joinedDate = createdAt.toDate();
+
+    const yearsDiff = now.getFullYear() - joinedDate.getFullYear();
+    const monthsDiff = now.getMonth() - joinedDate.getMonth();
+    const daysDiff = now.getDate() - joinedDate.getDate();
+
+    if (yearsDiff > 1) {
+      return `${yearsDiff} years ${Math.abs(monthsDiff)} months`;
+    } else if (yearsDiff === 1) {
+      return `1 year ${Math.abs(monthsDiff)} months`;
+    } else if (monthsDiff > 1) {
+      return `${monthsDiff} months ${Math.abs(daysDiff)} days`;
+    } else if (monthsDiff === 1) {
+      return `1 month ${Math.abs(daysDiff)} days`;
+    } else if (daysDiff > 1) {
+      return `${Math.abs(daysDiff)} days`;
+    } else if (daysDiff === 0) {
+      return `Today`;
+    } else {
+      return `${Math.abs(daysDiff)} days`;
+    }
   };
 
   return (
@@ -34,15 +72,80 @@ const ProfileModal = ({ showProfile, handleClose }) => {
       aria-labelledby="profile-modal-title"
       aria-describedby="profile-modal-description"
     >
-      <Box sx={style}>
-        <Typography id="profile-modal-title" variant="h6" component="h2">
-          Hoo-rah-ray, ray, ray! {userData.displayName}
+      <div className="modal-box">
+        <div className ="modal-header">
+            <div className = "modal-header-text">
+        <div id="profile-modal-title" className="modal-title">
+          Hoo-rah-ray, ray, ray! 
+        </div>
+        <div className="modal-name">
+        {userData.displayName}
+        </div>
+        <Typography className="modal-description">
+          Email: {userData.email}
         </Typography>
-        <Typography id="profile-modal-description" sx={{ mt: 2 }}>
-            Email: {userData.email}
+        </div>
+
+        <div className="modal-description-wrapper">
+            <div className="modal-description">           
+                Joined 
+            </div>
+            <div className="modal-data">
+            {calculateJoinedDuration(userData.createdAt)}
+            </div>
+        </div>
+
+        <div className="modal-description-wrapper">
+            <div className="modal-description">
+                Rehomed
+            </div>
+            <div className="modal-data">
+                5
+            </div>
+            <div className="modal-description">
+                treasures
+            </div>
+        </div>
+
+        <div className="modal-description-wrapper">
+            <div className="modal-description">
+                Revived 
+            </div>
+            <div className="modal-data">
+                3
+            </div>
+            <div className="modal-description">
+            past pieces
+            </div>
+        </div>
+        <Button className="close-button" onClick={handleClose}>
+        <CloseIcon/>
+        </Button>
+        </div>
+
+        
+
+        <div className="items-container">
+        <Typography className="listed-items-title">
+          Your Listed Items:
         </Typography>
-        <Button onClick={handleClose}>Close</Button> {/* Close button */}
-      </Box>
+        {userItems.length > 0 ? (
+            userItems.map((item) => (
+              <div key={item.id} className="itemBox">
+                <div className="textContainer">
+                  <h1 className="itemTitle">{item.name}</h1>
+                  <p className="itemPrice">Price: ${item.price}</p>
+                </div>
+              </div>
+            ))
+          
+          ) : (
+            <Typography>No items listed yet.</Typography>
+          )}
+        </div>
+
+
+      </div>
     </Modal>
   );
 };

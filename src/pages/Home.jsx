@@ -58,22 +58,22 @@ const Home = () => {
     }
   };
 
-  const items = [
-    {
-      id: 1,
-      image: 'path_to_image1.jpg',
-      title: 'Vintage Jacket',
-      description: 'A cool vintage jacket in excellent condition.',
-      price: 50,
-    },
-    {
-      id: 2,
-      image: 'path_to_image2.jpg',
-      title: 'Retro Sneakers',
-      description: 'Classic sneakers for all-day comfort.',
-      price: 75,
-    },
-  ];
+  // const items = [
+  //   {
+  //     id: 1,
+  //     image: 'path_to_image1.jpg',
+  //     title: 'Vintage Jacket',
+  //     description: 'A cool vintage jacket in excellent condition.',
+  //     price: 50,
+  //   },
+  //   {
+  //     id: 2,
+  //     image: 'path_to_image2.jpg',
+  //     title: 'Retro Sneakers',
+  //     description: 'Classic sneakers for all-day comfort.',
+  //     price: 75,
+  //   },
+  // ];
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -100,13 +100,13 @@ const Home = () => {
         <ViewItems />
       </div>
 
-      {selectedItem ? (
+      {/* {selectedItem ? (
         <DetailedItem item={selectedItem} />
       ) : (
         items.map((item) => (
           <Item key={item.id} {...item} onClick={() => handleSelectItem(item)} />
         ))
-      )}
+      )} */}
 
       <ProfileModal showProfile={showProfile} handleClose={() => setShowProfile(false)} />
     </div>
