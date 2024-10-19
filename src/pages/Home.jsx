@@ -7,6 +7,7 @@ import Item from '../Item';
 import DetailedItem from '../DetailedItem'; 
 import backgroundImage from '../assets/old-cabell.jpg';
 import '../css/Home.css';
+import ViewItems from './ViewItems';
 
 const Home = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -94,6 +95,7 @@ const Home = () => {
       <div>
         <button onClick={handleUpload}>Add Item</button>
         <button onClick={handleLogout}>Log Out</button>
+        <ViewItems />
       </div>
 
       {selectedItem ? (
