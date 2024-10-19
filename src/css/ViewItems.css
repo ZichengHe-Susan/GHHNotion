@@ -14,34 +14,44 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;  /* Relative positioning for absolute content inside */
+    position: relative; /* Relative positioning for absolute content inside */
     overflow: hidden;
   }
   
   .textContainer {
     position: absolute;
-    bottom: 10px;  /* Positioned 10px from the bottom */
-    left: 10px;    /* Positioned 10px from the left */
+    bottom: 10px; /* Positioned 10px from the bottom */
+    left: 10px; /* Positioned 10px from the left */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
   }
   
   .itemTitle {
-    font-size: 1.2em;
+    font-size: 1em; /* Reduced size */
     margin: 0;
   }
   
   .itemPrice {
-    margin: 5px 0 0 0;
+    font-size: 0.9em; /* Reduced size */
+    margin: 5px 0; /* Margin between title and price */
     color: #333;
   }
-
+  
+  .itemImage {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Limit height */
+    object-fit: cover;
+  }
+  
   .addToCartButton {
-    /* background-color: #007bff; */
     color: #333;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 12px; /* Slightly smaller padding */
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 5px; /* Less margin for tighter layout */
+    font-size: 0.8em; /* Smaller text */
   }
   
   .addToCartButton:hover {

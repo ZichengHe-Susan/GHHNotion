@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase'; 
 import { getDocs, collection } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 import '../css/ViewItems.css';
 
@@ -41,10 +42,22 @@ const ViewItems = () => {
           <div className="textContainer">
             <h1 className="itemTitle">{item.name}</h1>
             <p className="itemPrice">Price: ${item.price}</p>
+            <Link 
+              to="#" 
+              className="addToCartButton" 
+              onClick={() => addToCart(item)} // Handle click to add to cart
+            >Add to Cart</Link>
           </div>
-          <button className="addToCartButton" onClick={() => addToCart(item)}>
+          {item.imageURL ? (
+            <div className="imageContainer">
+              <img src={item.imageURL} alt={item.name} className="itemImage" />
+            </div>
+          ) : (
+            <p>No image available</p>
+          )}
+          {/* <button className="addToCartButton" onClick={() => addToCart(item)}>
             Add to Cart
-          </button>
+          </button> */}
         </div>
       ))}
     </div>
