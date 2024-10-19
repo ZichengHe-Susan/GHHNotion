@@ -1,8 +1,26 @@
-# GHHNotion
+# Wahoo Warehouse
 * Login
-* User authentication -
+  * User authentication -
+* Superuser - Manage categories (later)
+* Homepage
+  * Search items (search bar)
+  * Item view page
+  * Categories
+* Upload - 
+* Bank page - 
+  * Coin system - 
+  * Online payment - Paypal
+* Shopping cart
+* Profile - follow system, total likes, rating with different categories
+
+Item Model / Object
+* Picture
+* Location - how to pickup, where to pickup
+
+
 * Tasklist
-*   With priority queueing
+  * With priority queueing
+  
 
 
 # Getting Started with Create React App
