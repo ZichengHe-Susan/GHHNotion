@@ -1,17 +1,34 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';  // Import auth from firebase.js
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);  
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+    console.log('Firebase API Key:', process.env.REACT_APP_FIREBASE_API_KEY);
+
       await signInWithEmailAndPassword(auth, email, password);
-      // Redirect or show success message
+      setError('Login successful');
+      // Redirect or show success message after login
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+        console.log('Firebase API Key:', process.env.REACT_APP_FIREBASE_API_KEY);
+
+      await createUserWithEmailAndPassword(auth, email, password);
+      setError('Registration successful');
+      // Optionally, you can automatically log the user in or redirect after registration
     } catch (err) {
       setError(err.message);
     }
@@ -19,8 +36,8 @@ const Login = () => {
 
   return (
     <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <h2>{isRegistering ? 'Register' : 'Login'}</h2>
+      <form onSubmit={isRegistering ? handleRegister : handleLogin}>
         <div>
           <label>Email:</label>
           <input 
@@ -40,8 +57,18 @@ const Login = () => {
           />
         </div>
         {error && <p>{error}</p>}
-        <button type="submit">Login</button>
+        <button type="submit">{isRegistering ? 'Register' : 'Login'}</button>
       </form>
+
+      {/* Toggle between Login and Register */}
+      <p>
+        {isRegistering ? 
+          'Already have an account?' : 
+          "Don't have an account?"}
+        <button onClick={() => setIsRegistering(!isRegistering)}>
+          {isRegistering ? 'Login' : 'Register'}
+        </button>
+      </p>
     </div>
   );
 };
