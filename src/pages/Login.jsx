@@ -15,7 +15,6 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setError('Login successful');
-      // Redirect or show success message after login
     } catch (err) {
       setError(err.message);
     }
@@ -26,7 +25,6 @@ const Login = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       setError('Registration successful');
-      // Optionally, you can automatically log the user in or redirect after registration
     } catch (err) {
       setError(err.message);
     }
