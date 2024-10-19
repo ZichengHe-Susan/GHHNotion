@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .itemBox {
+    background-color: #f9f9f9;
+    width: 200px;
+    height: 250px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;  /* Relative positioning for absolute content inside */
+    overflow: hidden;
+  }
+  
+  .textContainer {
+    position: absolute;
+    bottom: 10px;  /* Positioned 10px from the bottom */
+    left: 10px;    /* Positioned 10px from the left */
+  }
+  
+  .itemTitle {
+    font-size: 1.2em;
+    margin: 0;
+  }
+  
+  .itemPrice {
+    margin: 5px 0 0 0;
+    color: #333;
+  }
+
+  .addToCartButton {
+    /* background-color: #007bff; */
+    color: #333;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .addToCartButton:hover {
+    background-color: #0056b3;
+  }
+  

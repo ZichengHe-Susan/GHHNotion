@@ -8,6 +8,7 @@ import DetailedItem from '../DetailedItem';
 import backgroundImage from '../assets/old-cabell.jpg';
 import '../css/Home.css';
 import ProfileModal from './ProfileModal';
+import ViewItems from './ViewItems';
 
 const Home = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -96,6 +97,7 @@ const Home = () => {
         <button onClick={handleUpload}>Add Item</button>
         <button onClick={() => setShowProfile(true)}>Profile</button> 
         <button onClick={handleLogout}>Log Out</button>
+        <ViewItems />
       </div>
 
       {selectedItem ? (

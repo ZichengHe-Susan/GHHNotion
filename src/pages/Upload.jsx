@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { getDocs, collection, addDoc , updateDoc, arrayUnion, doc} from 'firebase/firestore';
+import { Link } from "react-router-dom";
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 
 
 const AddItem = () => {
-
   const { currentUser, userData } = useAuth();
   const [newItemName, setItemName] = useState("")
   const [newItemPrice, setItemPrice] = useState(0)
   const [isItemAvailable, setIsItemAvailable] = useState(false)
   const navigate = useNavigate(); 
+  const [newItemDescription, setItemDescription] = useState("")
+
 
 
 
@@ -77,6 +79,7 @@ const AddItem = () => {
         name: newItemName,
         price: newItemPrice,
         isAvailable: isItemAvailable,
+        description: newItemDescription,
         seller: currentUser.uid,
         timestamp: new Date(),
       });
@@ -95,38 +98,76 @@ const AddItem = () => {
   };
 
   return (
-    <div>
-      {/* <h2>File Upload</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileChange} />
-        {filePreview && (
-          <div>
-            <p>File Preview:</p>
-            <img src={filePreview} alt="File Preview" width="100" />
-          </div>
-        )}
-        <button type="submit">Upload</button>
-      </form> */}
+    // <div>
+    //   {/* <h2>File Upload</h2>
+    //   <form onSubmit={handleSubmit}>
+    //     <input type="file" onChange={handleFileChange} />
+    //     {filePreview && (
+    //       <div>
+    //         <p>File Preview:</p>
+    //         <img src={filePreview} alt="File Preview" width="100" />
+    //       </div>
+    //     )}
+    //     <button type="submit">Upload</button>
+    //   </form> */}
 
 
-      <input 
-        placeholder="Item Name..." 
-        onChange={(e) => setItemName(e.target.value)}
-      />
-      <input 
-        placeholder="List Price..." 
-        type="number"
-        onChange={(e) => setItemPrice(Number(e.target.value))}
-      />
-      <input type="checkbox" 
-        checked={isItemAvailable}
-        onChange={(e) => setIsItemAvailable(e.target.checked)}
-      />
-      <label>Available</label>
-      <input type="image" />
-      <button>Upload Image</button>
-      <button onClick={onSubmitItem}>Add Item</button>
 
+    //   <input 
+    //     placeholder="Item Name..." 
+    //     onChange={(e) => setItemName(e.target.value)}
+    //   />
+    //   <input 
+    //     placeholder="List Price..." 
+    //     type="number"
+    //     onChange={(e) => setItemPrice(Number(e.target.value))}
+    //   />
+    //   <input 
+    //     placeholder="Description of Item..." 
+    //     onChange={(e) => setItemName(e.target.value)}
+    //   />
+    //   <input type="checkbox" 
+    //     checked={isItemAvailable}
+    //     onChange={(e) => setIsItemAvailable(e.target.checked)}
+    //   />
+    //   <label>Available</label>
+    //   <input type="image" />
+    //   <button>Upload Image</button>
+    //   <button onClick={onSubmitItem}>Add Item</button>
+
+    // </div>
+
+    <div className="add-item-container">
+      {/* Navbar */}
+      <nav className="navbar">
+        <Link to="/" className="nav-link">Home</Link>
+      </nav>
+
+      {/* Form to Add Item */}
+      <div className="form-container">
+        <input 
+          placeholder="Item Name..." 
+          onChange={(e) => setItemName(e.target.value)}
+        />
+        <input 
+          placeholder="List Price..." 
+          type="number"
+          onChange={(e) => setItemPrice(Number(e.target.value))}
+        />
+        <input 
+          placeholder="Description of Item..." 
+          onChange={(e) => setItemDescription(e.target.value)}
+        />
+        <div>
+          <input 
+            type="checkbox" 
+            checked={isItemAvailable}
+            onChange={(e) => setIsItemAvailable(e.target.checked)}
+          />
+          <label>Available</label>
+        </div>
+        <button onClick={onSubmitItem}>Add Item</button>
+      </div>
     </div>
   );
 };
