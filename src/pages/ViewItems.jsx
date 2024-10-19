@@ -83,8 +83,8 @@ const ViewItems = () => {
           {/* <button className="addToCartButton" onClick={() => addToCart(item)}>
             Add to Cart
           </button> */}
-          {currentUser && currentUser.uid === item.seller && ( // Check if current user is the seller
-            <button className="deleteButton" onClick={() => deleteItem(item.id)}>
+          {currentUser && currentUser.uid === item.seller && (
+            <button className="deleteButton" onClick={() => deleteItem(item.id, item.imageURL)}>
               Delete Item
             </button>
           )}
