@@ -11,7 +11,7 @@ const ProfileModal = ({ showProfile, handleClose }) => {
     setOpen(showProfile);
   }, [showProfile]);
 
-  if(!currentUser) {
+  if(!currentUser && !userData) {
     return;
   }
 
@@ -36,10 +36,10 @@ const ProfileModal = ({ showProfile, handleClose }) => {
     >
       <Box sx={style}>
         <Typography id="profile-modal-title" variant="h6" component="h2">
-          Hoo-rah-ray, ray, ray! {userData.displayName}
+          Hoo-rah-ray, ray, ray! {userData?.displayName}
         </Typography>
         <Typography id="profile-modal-description" sx={{ mt: 2 }}>
-            Email: {userData.email}
+            Email: {userData?.email}
         </Typography>
         <Button onClick={handleClose}>Close</Button> {/* Close button */}
       </Box>

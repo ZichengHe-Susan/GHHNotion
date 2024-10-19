@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 import { getDocs, collection, addDoc , updateDoc, arrayUnion, doc} from 'firebase/firestore';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 
 const AddItem = () => {
@@ -12,60 +12,9 @@ const AddItem = () => {
   const [newItemName, setItemName] = useState("")
   const [newItemPrice, setItemPrice] = useState(0)
   const [isItemAvailable, setIsItemAvailable] = useState(false)
-  const navigate = useNavigate(); 
   const [newItemDescription, setItemDescription] = useState("")
+  const navigate = useNavigate(); 
 
-
-
-
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const [filePreview, setFilePreview] = useState(null);
-
-  // // Handles file selection
-  // const handleFileChange = (event) => {
-  //   const file = event.target.files[0];
-  //   setSelectedFile(file);
-
-  //   // Optional: create a file preview for images
-  //   if (file && file.type.startsWith('image')) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setFilePreview(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  // // Handles form submission
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-    
-  //   if (!selectedFile) {
-  //     alert("Please select a file before uploading.");
-  //     return;
-  //   }
-
-  //   // Create form data to send to server
-  //   const formData = new FormData();
-  //   formData.append("file", selectedFile);
-
-  //   // Send request to backend
-  //   try {
-  //     const response = await fetch('/upload', {
-  //       method: 'POST',
-  //       body: formData,
-  //     });
-
-  //     if (response.ok) {
-  //       alert('File uploaded successfully');
-  //     } else {
-  //       alert('File upload failed');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error during file upload', error);
-  //     alert('Error uploading file');
-  //   }
-  // };
   useEffect(() => {
     if (!currentUser) {
       navigate('/login');
@@ -73,7 +22,7 @@ const AddItem = () => {
   }, [currentUser, navigate]);
 
   const itemsCollectionRef = collection(db, "items");
-  const onSubmitItem = async () => {
+  const onSubmitItem = async (imageURL) => {
     try {
       const newItemRef = await addDoc(itemsCollectionRef, {
         name: newItemName,
@@ -82,6 +31,7 @@ const AddItem = () => {
         description: newItemDescription,
         seller: currentUser.uid,
         timestamp: new Date(),
+        imageURL: imageURL,
       });
 
       const userDocRef = doc(db, "users", currentUser.uid);
@@ -97,45 +47,23 @@ const AddItem = () => {
     
   };
 
+  const [itemImage, setItemImage] = useState(null);
+  const uploadImage = async () => {
+    if (itemImage == null) return;
+
+    const imageRef = ref(storage, `${currentUser.uid}/${itemImage.name + v4()}`);
+
+    await uploadBytes(imageRef, itemImage);
+    const imageURL = await getDownloadURL(imageRef);
+    onSubmitItem(imageURL);
+    alert("Image uploaded!");
+
+    // uploadBytes(imageRef, itemImage).then(() => {
+    //     alert("Image uploaded!");
+    // });
+  };
+
   return (
-    // <div>
-    //   {/* <h2>File Upload</h2>
-    //   <form onSubmit={handleSubmit}>
-    //     <input type="file" onChange={handleFileChange} />
-    //     {filePreview && (
-    //       <div>
-    //         <p>File Preview:</p>
-    //         <img src={filePreview} alt="File Preview" width="100" />
-    //       </div>
-    //     )}
-    //     <button type="submit">Upload</button>
-    //   </form> */}
-
-
-
-    //   <input 
-    //     placeholder="Item Name..." 
-    //     onChange={(e) => setItemName(e.target.value)}
-    //   />
-    //   <input 
-    //     placeholder="List Price..." 
-    //     type="number"
-    //     onChange={(e) => setItemPrice(Number(e.target.value))}
-    //   />
-    //   <input 
-    //     placeholder="Description of Item..." 
-    //     onChange={(e) => setItemName(e.target.value)}
-    //   />
-    //   <input type="checkbox" 
-    //     checked={isItemAvailable}
-    //     onChange={(e) => setIsItemAvailable(e.target.checked)}
-    //   />
-    //   <label>Available</label>
-    //   <input type="image" />
-    //   <button>Upload Image</button>
-    //   <button onClick={onSubmitItem}>Add Item</button>
-
-    // </div>
 
     <div className="add-item-container">
       {/* Navbar */}
@@ -165,8 +93,13 @@ const AddItem = () => {
             onChange={(e) => setIsItemAvailable(e.target.checked)}
           />
           <label>Available</label>
+          <input 
+            type="file"
+            onChange={(e) => {setItemImage(e.target.files[0])}}
+          />
         </div>
-        <button onClick={onSubmitItem}>Add Item</button>
+        {/* <button onClick={uploadImage}>Upload Image</button> */}
+        <button onClick={uploadImage}>Add Item</button>
       </div>
     </div>
   );
