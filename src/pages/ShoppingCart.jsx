@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart } from '../contexts/CartContext';
 import '../css/ShoppingCart.css';
+import defaultImage from '../assets/coming-soon.jpg';
 
 const ShoppingCart = () => {
 
@@ -12,10 +13,10 @@ const ShoppingCart = () => {
             {cartItems.length > 0 ? (
                 <ul className="cart-items">
                     {cartItems.map((item, index) => (
-                        <li key={index} className="cart-item">
+                        <li key={item.id} className="cart-item">
                             <div className="item-info">
-                                <img src={item.image} alt={item.title} className='item-image' />
-                                <span className="item-title">{item.title}</span>
+                                <img src={item.imageURL || defaultImage} alt={item.name} className='item-image' />
+                                <span className="item-title">{item.name}</span>
                                 <span className="item-price">${item.price}</span>
                             </div>
                             <div className="item-actions">

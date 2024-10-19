@@ -1,4 +1,6 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { db } from '../firebase';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import lawn from '../assets/lawn.jpg';
 import login from '../assets/login.jpg';
 import old from '../assets/old-cabell.jpg';
@@ -16,14 +18,24 @@ export const CartProvider = ({ children }) => {
     // { id: 3, title: 'Antique Watch', price: 120, quantity: 1, image: old }
 ];
 
-const [cartItems, setCartItems] = useState(initialCartItems);
+const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (item) => {
+useEffect(() => {
+  const itemsCollectionRef = collection(db, "items");
+  const getItems = async () => {
+      const data = await getDocs(itemsCollectionRef);
+      setCartItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+  getItems();
+}, []);
+
+  const addToCart = async (item) => {
     setCartItems(currentItems => [...currentItems, item]);
   };
 
-  const removeFromCart = (id) => {
+  const removeFromCart = async (id) => {
     setCartItems(currentItems => currentItems.filter(item => item.id !== id));
+    await deleteDoc(doc(db, "items", id));
   }
 
   return (

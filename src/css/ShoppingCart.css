@@ -1,18 +1,24 @@
 /* Base font and color scheme */
 body, h1, p {
     font-family: 'Arial', sans-serif; /* This should match your homepage font */
-    color: rgb(255, 255, 255); /* Assuming a dark theme based on the homepage */
+    color: rgb(0, 0, 0); /* Assuming a dark theme based on the homepage */
   }
   
   /* Background for consistency */
   .shopping-cart {
-    background-color: rgba(144, 144, 144, 0.7); /* Semi-transparent black for overlay feel */
+    background-color: rgb(255, 255, 255); /* Semi-transparent black for overlay feel */
     padding: 20px;
   }
 
+  .item-info {
+    display: flex;   /* Align children (image and text) in a row */
+    align-items: center; /* Center align items vertically */
+    flex-grow: 1; /* Allows the item info to take up all available space pushing actions to the end */
+  }
+
   .item-image {
-    width: 100px;  /* Adjust the size as needed */
-    height: auto;
+    width: 60px;  /* Adjust the size as needed */
+    height: 60px;
     display: block;
     margin-right: 10px;
     border-radius: 5px;  /* Optional, for rounded corners */
@@ -22,6 +28,7 @@ body, h1, p {
   .cart-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 10px;
     margin-bottom: 10px;
     background-color: rgba(48, 48, 48, 0.1);
