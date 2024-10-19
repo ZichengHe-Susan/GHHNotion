@@ -1,6 +1,6 @@
 .home-header {
     position: relative;
-    background-image: url('./assets/alderman-and-peabody.jpg');
+    background-image: url('../assets/alderman-and-peabody.jpg');
     background-position: center;
     background-size: cover;
     min-height: 100vh;

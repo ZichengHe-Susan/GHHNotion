@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase'; // Import auth from firebase.js
-import '../css/login.scss'; // Import SCSS file for styling
-import {Typography, Button, TextField, Grid, Link, Box, Container} from '@mui/material';
+import { auth } from '../firebase'; 
+import '../css/login.scss'; 
+import { Typography, Button, TextField, Grid, Link, Box, Container } from '@mui/material';
+import { useNavigate } from 'react-router-dom'; 
+import Home from './Home';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,11 +12,14 @@ const Login = () => {
   const [error, setError] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
 
+  const navigate = useNavigate(); 
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setError('Login successful');
+      navigate('/'); 
     } catch (err) {
       setError(err.message);
     }
@@ -32,17 +37,18 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      {/* Left side with image */}
       <div className="login-image">
-        {/* Placeholder for a custom image */}
       </div>
 
-      {/* Right side with form */}
       <div className="login-form">
-        <Typography variant="h2" className = "welcome-text">
+        <Typography variant="h2" className="welcome-text">
           Welcome to UVA Thrift Store
         </Typography>
-        <h2 className="slogan">{isRegistering ? 'Join the UVA Thrift Community – Reduce, Reuse, and Reimagine' : 'Discover Unique Finds & Reduce Waste by Thrifting'}</h2>
+        <h2 className="slogan">
+          {isRegistering
+            ? 'Join the UVA Thrift Community – Reduce, Reuse, and Reimagine'
+            : 'Discover Unique Finds & Reduce Waste by Thrifting'}
+        </h2>
         <form onSubmit={isRegistering ? handleRegister : handleLogin}>
           <div className="form-group">
             <label>Email</label>
