@@ -58,3 +58,17 @@
     background-color: #0056b3;
   }
   
+  .deleteButton {
+    color: #fff;
+    background-color: #dc3545; /* Bootstrap's danger color */
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px; /* Space between buttons */
+    width: 100%; /* Same width as the Add to Cart button */
+  }
+  
+  .deleteButton:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
