@@ -1,0 +1,38 @@
+.home {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    gap: 20px; /* Ensures space between the items */
+  }
+  
+  .item {
+    flex: 1 1 22%; /* Adjusts the basis to less than 25% to fit four items per row considering the gap */
+    border: 1px solid #ccc; /* Adds a border around each item */
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
+    background-color: #fff; /* Optional: changes the background color for contrast */
+  }
+  
+  .item-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Adjust text and button styling as needed */
+  .item h3, .item p, .item .price {
+    text-align: center;
+  }
+  
+  .view-button {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
