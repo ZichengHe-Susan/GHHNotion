@@ -1,0 +1,56 @@
+/* Base font and color scheme */
+body, h1, p {
+    font-family: 'Arial', sans-serif; /* This should match your homepage font */
+    color: rgb(255, 255, 255); /* Assuming a dark theme based on the homepage */
+  }
+  
+  /* Background for consistency */
+  .shopping-cart {
+    background-color: rgba(144, 144, 144, 0.7); /* Semi-transparent black for overlay feel */
+    padding: 20px;
+  }
+
+  .item-image {
+    width: 100px;  /* Adjust the size as needed */
+    height: auto;
+    display: block;
+    margin-right: 10px;
+    border-radius: 5px;  /* Optional, for rounded corners */
+  }
+  
+  /* Styling for the cart items */
+  .cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(48, 48, 48, 0.1);
+    border-radius: 5px;
+  }
+  
+  .cart-item h2, .cart-item p {
+    margin: 0.5rem 0;
+  }
+
+  /* Checkout button */
+  .checkout-button {
+    background-color: #4CAF50; /* Green button for actions */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .shopping-cart {
+      padding: 10px;
+    }
+  }
+  
+  .empty-cart {
+    text-align: center;
+    padding: 20px;
+  }
+  
