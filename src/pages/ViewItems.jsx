@@ -48,8 +48,11 @@ const ViewItems = () => {
   
     try {
       // Delete the image from storage
-      await deleteObject(imageRef);
-      console.log("Image deleted successfully");
+      if (imageURL) {
+        const imageRef = ref(storage, imageURL);
+        await deleteObject(imageRef);
+        console.log("Image deleted successfully");
+      }
   
       // Delete the item from Firestore
       await deleteDoc(itemDocRef);
@@ -84,7 +87,7 @@ const ViewItems = () => {
             Add to Cart
           </button> */}
           {currentUser && currentUser.uid === item.seller && (
-            <button className="deleteButton" onClick={() => deleteItem(item.id, item.imageURL)}>
+            <button className="deleteButton" onClick={() => deleteItem(item.id, item.imageURL || null)}>
               Delete Item
             </button>
           )}
