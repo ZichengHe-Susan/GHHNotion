@@ -11,7 +11,7 @@ const AddItem = () => {
   const { currentUser, userData } = useAuth();
   const [newItemName, setItemName] = useState("")
   const [newItemPrice, setItemPrice] = useState(0)
-//   const [isItemAvailable, setIsItemAvailable] = useState(false)
+  const [isItemAvailable, setIsItemAvailable] = useState(true)
   const [newItemDescription, setItemDescription] = useState("")
   const navigate = useNavigate(); 
 
@@ -27,7 +27,7 @@ const AddItem = () => {
       await addDoc(itemsCollectionRef, {
         name: newItemName,
         price: newItemPrice,
-        // isAvailable: isItemAvailable,
+        isAvailable: isItemAvailable,
         description: newItemDescription,
         seller: currentUser.uid,
         timestamp: new Date(),
@@ -57,10 +57,6 @@ const AddItem = () => {
     const imageURL = await getDownloadURL(imageRef);
     onSubmitItem(imageURL);
     alert("Image uploaded!");
-
-    // uploadBytes(imageRef, itemImage).then(() => {
-    //     alert("Image uploaded!");
-    // });
   };
 
   return (
