@@ -42,6 +42,7 @@ const Login = () => {
       role: 'user', 
       createdAt: new Date(), 
       items: [],
+      balance: 50,
     });
       setError('Registration successful');
     } catch (err) {
