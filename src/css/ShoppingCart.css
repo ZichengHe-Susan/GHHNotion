@@ -3,6 +3,34 @@ body, h1, p {
     font-family: 'Arial', sans-serif; /* This should match your homepage font */
     color: rgb(0, 0, 0); /* Assuming a dark theme based on the homepage */
   }
+  .shopping-cart-wrapper{
+
+    display: flex;
+
+    align-items: flex-start;
+    
+    height: 100vh;
+    flex-direction: row;
+  }
+  .shopping-cart-title{
+    font-size: 34px;
+    font-weight: bold;
+    margin: 20px 50px;
+  }
+  .back-button{
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 50px;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #3b913f;
+    }
+  }
 
   .shopping-cart-container {
     display: flex;
@@ -12,12 +40,13 @@ body, h1, p {
   }
   
   /* Background for consistency */
-  .shopping-cart {
-    background-color: rgb(255, 255, 255); /* Semi-transparent black for overlay feel */
-    padding: 20px;
-    width: 70%;
-  }
 
+  .shopping-cart {
+    width: 65%; /* Set the width of the shopping cart section */
+    background-color: white; /* Background color for clarity */
+    padding: 90px 20px 90px 90px;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
   .item-info {
     display: flex;   /* Align children (image and text) in a row */
     align-items: center; /* Center align items vertically */
@@ -41,7 +70,7 @@ body, h1, p {
     margin-bottom: 10px;
     background-color: rgba(48, 48, 48, 0.1);
     border-radius: 5px;
-    width: 50%;  /* Set the width to half of the parent container */ 
+    width: 65%;  /* Set the width to half of the parent container */ 
     margin-right: 0;
   }
 
@@ -59,7 +88,7 @@ body, h1, p {
   
   .item-remove {
     padding: 5px 10px;
-    background-color: #4CAF50; /* Green button for actions */
+    background-color: #8d8d8d; /* Green button for actions */
     color: white;
     border: none;
     border-radius: 5px;
@@ -71,12 +100,12 @@ body, h1, p {
   }
 
   .cart-summary {
-    width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: white;
-  }
+    width:70%; /* Take up 30% of the width */
+    height: 100vh; /* Full height of the viewport */
+    background-image: url('../assets/battle-building.jpg'); /* Set the image */
+    background-size: cover; /* Make sure the image covers the entire section */
+    background-position: center; /* Center the image */
+}
 
   .summary-details {
     display: flex;
@@ -94,6 +123,10 @@ body, h1, p {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #3b913f;
+    }
   }
   
   /* Responsive adjustments */
@@ -110,4 +143,11 @@ body, h1, p {
     text-align: center;
     padding: 20px;
   }
-  
+  .cart-sum{
+    margin: 100px 10px 50px 38px;
+    width: 60%;
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    padding: 30px;
+
+  }
