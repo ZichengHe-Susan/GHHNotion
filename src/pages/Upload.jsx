@@ -32,6 +32,7 @@ const AddItem = () => {
         price: newItemPrice,
         isAvailable: isItemAvailable,
         description: newItemDescription,
+        location: newLocationDet,
         seller: currentUser.uid,
         timestamp: new Date(),
         imageURL: imageURL,
