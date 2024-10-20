@@ -1,28 +1,59 @@
+html, body {
+  height: 100%; /* Ensure the body and html elements cover the full height of the viewport */
+  margin: 0;
+}
+
+.item-details-wrapper {
+  position: relative; /* For positioning the overlay */
+  display: flex;
+  justify-content: center; /* Horizontally center the container */
+  align-items: center; /* Vertically center the container */
+  height: 100vh; /* Make the container take up the full height of the viewport */
+  background-image: url('../assets/newcomb-hall.jpg'); /* Add the background image */
+  background-size: cover; /* Ensure the image covers the entire container */
+  background-position: center; /* Center the background image */
+
+  /* Add the overlay */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 0; /* Place it behind the content */
+  }
+}
+
 .item-details-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .item-details-container h1 {
-    margin-bottom: 20px;
-    font-size: 2em;
-    color: #333;
-  }
-  
-  .item-details-container p {
-    margin: 10px 0;
-    font-size: 1.2em;
-  }
-  
-  .item-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-top: 20px;
-  }
-  
+  position: relative;
+  z-index: 1; /* Ensure this content is above the overlay */
+  width: 50%;
+  margin: auto;
+  padding: 80px;
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.item-details-container h1 {
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #000000;
+}
+
+.item-details-container p {
+  margin: 10px 0;
+  font-size: 1.2em;
+  text-align: left;
+}
+
+.item-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
