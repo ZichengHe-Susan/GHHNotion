@@ -44,8 +44,12 @@ const ProfileModal = ({ showProfile, handleClose }) => {
   
           setItemBought(boughtCount);  // Set the number of items bought
           setItemSold(soldCount);  // Set the number of items sold
-  
-          setUserItems(filteredItems); // Store all items for the user
+          
+          const userListedItems = data.docs
+          .map((doc) => ({ ...doc.data(), id: doc.id }))
+          .filter((item) => item.seller === currentUser.uid);
+
+          setUserItems(userListedItems); 
         } catch (err) {
           console.error('Error fetching user items:', err);
         }
