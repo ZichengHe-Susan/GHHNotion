@@ -87,3 +87,12 @@ button:hover {
     color: black; /* Text turns black */
     border-color: white; /* Keep the border white on hover */
 }
+.view-items-padding{
+    padding: 40px;
+    padding-bottom: 80px;
+}
+.listing{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

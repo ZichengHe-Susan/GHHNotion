@@ -19,18 +19,19 @@ const ViewItems = () => {
     const getItemsList = async () => {
       try {
         const data = await getDocs(itemsCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setItemsList(filteredData);
+          const filteredData = data.docs
+          .map((doc) => ({ ...doc.data(), id: doc.id }))
+          .filter((item) => item.isAvailable);  
+        
+        setItemsList(filteredData); 
       } catch (err) {
         console.error("Error fetching items: ", err);
       }
     };
-
+  
     getItemsList();
-  }, []); 
+  }, []);  
+  
 
   const addToCart = async (item) => {
     const userDocRef = doc(db, 'users', currentUser.uid);

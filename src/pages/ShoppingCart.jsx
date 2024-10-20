@@ -4,7 +4,7 @@ import '../css/ShoppingCart.css';
 import defaultImage from '../assets/coming-soon.jpg';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase'; 
-import { getDocs, collection, updateDoc, arrayRemove,doc, getDoc} from 'firebase/firestore';
+import { getDocs, collection, updateDoc, arrayRemove,doc, getDoc,addDoc} from 'firebase/firestore';
 
 const ShoppingCart = () => {
     const navigate = useNavigate();
@@ -13,15 +13,17 @@ const ShoppingCart = () => {
     const [cart, setCart] = useState([]);
 
     const [totalPrice, setTotalPrice] = useState(0);
-    const [isCardUpdated, setIsCardUpdated] = useState(false);
-
-
+    useEffect(() => {
+        if (!currentUser) {
+          navigate('/login');
+        }
+      }, [currentUser, navigate]);
+    
     useEffect(() => {
         if (currentUser) {
             getCart();
-            getPrice();
         }
-    }, [currentUser, isCardUpdated]); 
+    }, [currentUser]); 
 
     const getCart = async () => {
         try {
@@ -39,7 +41,8 @@ const ShoppingCart = () => {
                     .filter((item) => userData.items.includes(item.id));
     
                 setCart(filteredCartData);  
-                getPrice();  
+                const totalP = filteredCartData.reduce((acc, item) => acc + item.price, 0);
+                setTotalPrice(totalP);
             } else {
                 console.error("User document does not exist.");
             }
@@ -49,11 +52,6 @@ const ShoppingCart = () => {
     };
     
     
-    const getPrice = ()=>{
-        const totalP = cart.reduce((acc, item) => acc + item.price, 0);
-        setTotalPrice(totalP);
-    }
-
 
     const removeItem = async (itemId) => {
         try {
@@ -63,7 +61,6 @@ const ShoppingCart = () => {
             });
             
             getCart();  
-            setIsCardUpdated(!isCardUpdated);
         } catch (error) {
             console.error('Error removing item from cart:', error);
         }
@@ -77,6 +74,51 @@ const ShoppingCart = () => {
             console.error('Failed to navigate to homepage:', error);
         }
     }
+    const handleCheckout = async () => {
+        try {
+            if(cart.length === 0) {
+                alert('No items in cart');
+                return;
+            }
+            const curDate = new Date();
+            const orderNumber = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            const userDocRef = doc(db, 'users', currentUser.uid);
+            await updateDoc(userDocRef, {
+                items: [],
+            });
+            const orderDocRef = collection(db, 'orders');
+            await addDoc(orderDocRef, {
+                orderNumber: orderNumber,
+                buyer: currentUser.uid,
+                items: cart,
+                totalPrice: totalPrice,
+                timestamp: curDate,
+                status: 'pending',
+            });
+    
+            for(let i = 0; i < cart.length; i++) {
+                const itemDocRef = doc(db, 'items', cart[i].id);
+                await updateDoc(itemDocRef, {
+                    isAvailable: false,
+                    buyer: currentUser.uid,
+                    soldOn: curDate,
+                });
+            }
+    
+            navigate('/checkedOut', {
+                state: {
+                    orderNumber: orderNumber,
+                    items: cart,
+                    totalPrice: totalPrice,
+                    timestamp: curDate,
+                    status: 'pending'
+                }
+            });
+        } catch (error) {
+            console.error('Error during checkout:', error);
+        }
+    }
+    
 
     return (
         <div className="shopping-cart-wrapper">
@@ -109,7 +151,7 @@ const ShoppingCart = () => {
                     <p>Total</p>
                     <p>${totalPrice.toFixed(2)}</p>
                 </div>
-                <button className="checkout-button">Checkout</button>
+                <button className="checkout-button" onClick ={handleCheckout}>Checkout</button>
                 </div>
         </div>
         <div className="cart-summary">

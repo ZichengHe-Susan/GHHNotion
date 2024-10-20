@@ -20,7 +20,7 @@
       padding: 50px 90px; /* Adjusted padding to reduce spacing */
       background-image: url('../assets/lawn.jpg');
       background-size: 150%; /* This scales the image to 150% of its original size */
-    background-position: center;
+      background-position: center;
       border-radius: 30px 30px 0 0;
 
       
@@ -68,12 +68,11 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.4); /* Adjust the opacity as needed */
-        z-index: 0; /* Places it behind the content */
-        border-radius: inherit; /* Keeps the same border-radius as .modal-header */
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 0; 
+        border-radius: inherit; 
       }
     
-      /* Ensure the content of the modal header is above the overlay */
  
     }
     .modal-description-wrapper{
@@ -86,7 +85,7 @@
     }
     .modal-description {
       font-size: 1rem;
-      margin: 4px 0; /* Reduced space between description sections */
+      margin: 4px 0; 
       color: #fff;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
     }
@@ -94,14 +93,15 @@
     .modal-data {
       font-weight: bold;
       font-size: 2em;
-      margin: 6px; /* Ensure consistent spacing with the descriptions */
+      margin: 6px; 
       color: #fff;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
     }
     .items-wrapper {
         padding: 30px 80px;
   
-        .items-container {
+        .items-container{
+           
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 16px;
@@ -117,4 +117,50 @@
         z-index: 1;
       }
   }
-  
+  .tabs-container {
+    display: flex;
+    justify-content: center; 
+
+    .MuiTabs-root {
+      justify-content: center; 
+    }
+    .MuiTab-root {
+      color: #000;
+      font-weight: bold;
+      min-width: 120px; 
+    }
+
+    .Mui-selected {
+      color: #000 !important 
+    }
+
+    .MuiTabs-indicator {
+      background-color: #000; 
+    }
+
+  }
+  .order-history {
+    padding: 20px;
+    
+    .order {
+      padding-left: 30px;
+      padding-right:30px;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        margin-bottom: 20px; /* Add space between each order */
+        border: 1px solid #ccc; /* Light border around each order */
+        border-radius: 10px; /* Rounded corners for each order */
+        background-color: #f9f9f9; /* Slightly different background color to highlight the order */
+        
+        .order-id {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .order-total, .order-status {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+    }
+}

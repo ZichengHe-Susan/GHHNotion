@@ -1,13 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-const generateOrderNumber = () => {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-};
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Checkout = () => {
     const navigate = useNavigate();
-    const orderNumber = generateOrderNumber();
+    const { state } = useLocation();  
+    const { orderNumber, items, totalPrice, timestamp, status } = state || {};
 
     const handleGoBack = () => {
         navigate('/');
@@ -17,8 +14,10 @@ const Checkout = () => {
         <div style={{ textAlign: 'center', marginTop: '50px' }}>
             <h1>Thank you for your payment!</h1>
             <p>Order Number: {orderNumber}</p>
-            <p>Status: Waiting for seller to confirm</p>
-            <button onClick={handleGoBack}>Go back to homepage</button>
+            <p>Total Price: ${totalPrice.toFixed(2)}</p>
+            <p>Status: {status}</p>
+            <p>Order Time: {new Date(timestamp).toLocaleString()}</p>
+            <button className='back-button' onClick={handleGoBack}>Go back to homepage</button>
         </div>
     );
 };
