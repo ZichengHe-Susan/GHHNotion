@@ -1,18 +1,29 @@
 import React from 'react';
 import { useCart } from '../contexts/CartContext';
+import { useNavigate } from 'react-router-dom';
 import '../css/ShoppingCart.css';
 import defaultImage from '../assets/coming-soon.jpg';
 
 const ShoppingCart = () => {
+    const navigate = useNavigate();
 
     const { cartItems, removeFromCart } = useCart();
 
     const totalPrice = cartItems.reduce((acc, item) => acc + item.price, 0);
 
+    const navigateHome = async () => {
+        try {
+            navigate('/');
+        } catch (error) {
+            console.error('Failed to navigate to homepage:', error);
+        }
+    }
+
     return (
         <>
         <div className="shopping-cart">
             <h1>Shopping Cart</h1>
+            <button onClick={navigateHome}>Back to Homepage</button>
             {cartItems.length > 0 ? (
                 <ul className="cart-items">
                     {cartItems.map((item, index) => (

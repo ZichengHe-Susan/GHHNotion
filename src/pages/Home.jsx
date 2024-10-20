@@ -58,6 +58,14 @@ const Home = () => {
     }
   };
 
+  const navigateCart = async () => {
+    try {
+      navigate('/cart');
+    } catch (error) {
+      console.error('Failed to navigate to shopping cart:', error);
+    }
+  };
+
   // const items = [
   //   {
   //     id: 1,
@@ -97,6 +105,7 @@ const Home = () => {
         <button onClick={handleUpload}>Add Item</button>
         <button onClick={() => setShowProfile(true)}>Profile</button> 
         <button onClick={handleLogout}>Log Out</button>
+        <button onClick={navigateCart}>Shopping Cart</button>
         <ViewItems />
       </div>
 
