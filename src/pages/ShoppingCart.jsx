@@ -7,7 +7,10 @@ const ShoppingCart = () => {
 
     const { cartItems, removeFromCart } = useCart();
 
+    const totalPrice = cartItems.reduce((acc, item) => acc + item.price, 0);
+
     return (
+        <>
         <div className="shopping-cart">
             <h1>Shopping Cart</h1>
             {cartItems.length > 0 ? (
@@ -31,6 +34,15 @@ const ShoppingCart = () => {
                 </div>
             )}
         </div>
+        <div className="cart-summary">
+            <h2>Summary</h2>
+                <div className="summary-details">
+                    <p>Total</p>
+                    <p>${totalPrice.toFixed(2)}</p>
+                </div>
+                <button className="checkout-button">Checkout</button>
+        </div>
+        </>
     );
 }
 

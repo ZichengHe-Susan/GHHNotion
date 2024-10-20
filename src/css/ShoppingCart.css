@@ -3,11 +3,19 @@ body, h1, p {
     font-family: 'Arial', sans-serif; /* This should match your homepage font */
     color: rgb(0, 0, 0); /* Assuming a dark theme based on the homepage */
   }
+
+  .shopping-cart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+  }
   
   /* Background for consistency */
   .shopping-cart {
     background-color: rgb(255, 255, 255); /* Semi-transparent black for overlay feel */
     padding: 20px;
+    width: 70%;
   }
 
   .item-info {
@@ -21,7 +29,7 @@ body, h1, p {
     height: 60px;
     display: block;
     margin-right: 10px;
-    border-radius: 5px;  /* Optional, for rounded corners */
+    border-radius: 5px;  
   }
   
   /* Styling for the cart items */
@@ -33,26 +41,68 @@ body, h1, p {
     margin-bottom: 10px;
     background-color: rgba(48, 48, 48, 0.1);
     border-radius: 5px;
-  }
-  
-  .cart-item h2, .cart-item p {
-    margin: 0.5rem 0;
+    width: 50%;  /* Set the width to half of the parent container */ 
+    margin-right: 0;
   }
 
-  /* Checkout button */
-  .checkout-button {
+  .item-title {
+    font-weight: bold; /* Optional: Make the title stand out */
+  }
+
+  .item-price {
+    font-weight: bold;
+    margin-right: 20px;
+    color: #000000; /* Optional: Different color for price */
+    text-align: right;
+    flex-grow: 1;
+  }
+  
+  .item-remove {
+    padding: 5px 10px;
     background-color: #4CAF50; /* Green button for actions */
     color: white;
-    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
+
+  .cart-item h2, .cart-item p {
+    margin: 0.5rem 0;
+  }
+
+  .cart-summary {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+  }
+
+  .summary-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  /* Checkout button */
+  .checkout-button {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
-    .shopping-cart {
-      padding: 10px;
+    .shopping-cart-container {
+      flex-direction: column;
+    }
+    .shopping-cart, .cart-summary {
+      flex: 0 0 auto;
     }
   }
   
