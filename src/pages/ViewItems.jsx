@@ -69,7 +69,7 @@ const ViewItems = () => {
   return (
     <div>
       <div className="container">
-        <h2 className="shopHeader">Items Available in the Shop</h2>
+        <h2 className="shopHeader">Click on the items to view item details </h2>
         
       </div>
         
@@ -83,10 +83,11 @@ const ViewItems = () => {
               {/* <h1 className="itemTitle">{item.name}</h1> */}
               <p className="itemPrice">Price: ${item.price}</p>
               <div className="button-group">
-                <button
+              {currentUser && currentUser.uid != item.seller && 
+                (<button
                   className="addToCartButton" 
                   onClick={() => addToCart(item)} 
-                  >Add to Cart</button>
+                  >Add to Cart</button>)}
                   {currentUser && currentUser.uid === item.seller && ( 
                   <button className="deleteButton" onClick={() => deleteItem(item.id, item.imageURL || null)}>
                     Delete Item

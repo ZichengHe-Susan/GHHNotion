@@ -3,11 +3,18 @@ import { useParams } from 'react-router-dom';
 import { db } from '../firebase'; // Import Firebase
 import { doc, getDoc } from 'firebase/firestore';
 import '../css/ItemDetail.scss';
+import { useNavigate } from 'react-router-dom';
+
 
 const ItemDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams(); // Get the item ID from the URL
   const [itemData, setItemData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const handleGoBack = () => {
+    navigate('/');
+};
 
   useEffect(() => {
     const fetchItemDetails = async () => {
@@ -37,7 +44,10 @@ const ItemDetails = () => {
   }
 
   return (
+    <div className="item-details-wrapper">
     <div className="item-details-container">
+      <button className='back-button-checkout' onClick={handleGoBack}>Go back to homepage</button>
+
       <h1>{itemData.name}</h1>
       <p><strong>Price:</strong> ${itemData.price}</p>
       <p><strong>Description:</strong> {itemData.description}</p>
@@ -47,6 +57,7 @@ const ItemDetails = () => {
       ) : (
         <p>No image available</p>
       )}
+    </div>
     </div>
   );
 };

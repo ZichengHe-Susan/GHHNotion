@@ -109,6 +109,7 @@ const Home = () => {
         <button onClick={handleLogout}>Log Out</button>
       </div>
       <div className ="view-items-padding">
+      <h1 className="view-items-title">Discover unique secondhand items</h1>
       <ViewItems />
       </div>
 
