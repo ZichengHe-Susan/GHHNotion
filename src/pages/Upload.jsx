@@ -78,6 +78,8 @@ const AddItem = () => {
       </nav>
 
       <div className="add-item-container">
+      <h2 style={{ color: 'white' }}>Item Details</h2>
+
         <div className="form-container">
           {/* Name Input */}
           <input
