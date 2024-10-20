@@ -37,11 +37,20 @@
   color: #333;
 }
 
+.imageContainer {
+  width: 100%;
+  height: 160px; /* You can adjust the height as needed */
+  overflow: hidden; /* Ensures that any overflow from the image is hidden */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .itemImage {
   width: 100%;
-  height: auto;
-  max-height: 200px; 
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the entire container */
+  display: block;
 }
 
 .button-group {
