@@ -3,21 +3,56 @@ body, h1, p {
     font-family: 'Arial', sans-serif; /* This should match your homepage font */
     color: rgb(0, 0, 0); /* Assuming a dark theme based on the homepage */
   }
+  .shopping-cart-wrapper{
+
+    display: flex;
+
+    align-items: flex-start;
+    
+    height: 100vh;
+    flex-direction: row;
+    z-index: 1;
+  }
+  .shopping-cart-title{
+    font-size: 34px;
+    font-weight: bold;
+    margin: 20px 50px;
+  }
+  /* .back-button{
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 50px;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #3b913f;
+    }
+  } */
 
   .shopping-cart-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px;
+    z-index: 1;
+
   }
   
   /* Background for consistency */
-  .shopping-cart {
-    background-color: rgb(255, 255, 255); /* Semi-transparent black for overlay feel */
-    padding: 20px;
-    width: 70%;
-  }
 
+  .shopping-cart {
+    width: 65%; /* Set the width of the shopping cart section */
+    background-color: white; /* Background color for clarity */
+    padding: 90px 20px 90px 90px;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    z-index: 1;
+    height: 100vh;
+
+}
   .item-info {
     display: flex;   /* Align children (image and text) in a row */
     align-items: center; /* Center align items vertically */
@@ -41,7 +76,7 @@ body, h1, p {
     margin-bottom: 10px;
     background-color: rgba(48, 48, 48, 0.1);
     border-radius: 5px;
-    width: 50%;  /* Set the width to half of the parent container */ 
+    width: 65%;  /* Set the width to half of the parent container */ 
     margin-right: 0;
   }
 
@@ -58,12 +93,16 @@ body, h1, p {
   }
   
   .item-remove {
+    border: 1.5px solid #000000; /* Border for the button */
     padding: 5px 10px;
-    background-color: #4CAF50; /* Green button for actions */
-    color: white;
-    border: none;
-    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    
     cursor: pointer;
+    &:hover {
+      background-color: #000000; /* Change the background color on hover */
+      color: white; /* Change the text color on hover */
+      border: 1.5px solid #000000;
+    }
   }
 
   .cart-item h2, .cart-item p {
@@ -71,12 +110,25 @@ body, h1, p {
   }
 
   .cart-summary {
-    width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: white;
-  }
+    width:70%; /* Take up 30% of the width */
+    height: 100vh; /* Full height of the viewport */
+    background-image: url('../assets/battle-building.jpg'); /* Set the image */
+    background-size: cover; /* Make sure the image covers the entire section */
+    background-position: center; /* Center the image */
+    background-repeat: repeat-y; 
+    
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2); /* Adjust the opacity as needed */
+      z-index: 0; 
+      border-radius: inherit; /* Keeps the same border-radius as .modal-header */
+    }
+}
 
   .summary-details {
     display: flex;
@@ -85,16 +137,44 @@ body, h1, p {
   }
 
   /* Checkout button */
-  .checkout-button {
-    width: 100%;
+  .back-button{
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    margin-left: 50px;
     font-size: 16px;
-  }
+    background-color: transparent; /* Transparent background */
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0); /* White border for the button */
+    border-radius: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+
+    &:hover{
+      background-color: rgb(0, 0, 0); /* On hover, the background becomes white */
+      color: rgb(255, 255, 255); /* Text turns black */
+      border-color: rgb(0, 0, 0); /* Keep the border white on hover */
+      }
+    }
+
+  .checkout-button  {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: transparent; /* Transparent background */
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0); /* White border for the button */
+    border-radius: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+
+    &:hover{
+      background-color: rgb(0, 0, 0); /* On hover, the background becomes white */
+      color: rgb(255, 255, 255); /* Text turns black */
+      border-color: rgb(0, 0, 0); /* Keep the border white on hover */
+      }
+    }
+
+
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
@@ -107,7 +187,15 @@ body, h1, p {
   }
   
   .empty-cart {
-    text-align: center;
-    padding: 20px;
+    text-align: left;
+    padding: 30px;
+    padding-left: 50px;
   }
-  
+  .cart-sum{
+    margin: 100px 10px 20px 38px;
+    width: 60%;
+    border: solid 2px #ccc;
+    border-radius: 10px;
+    padding: 20px 40px 40px 40px;
+
+  }

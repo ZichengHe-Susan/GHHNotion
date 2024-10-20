@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db,storage } from '../firebase'; 
-import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
+import { getDocs, collection, deleteDoc, doc, updateDoc,arrayUnion } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { ref, deleteObject } from 'firebase/storage';
@@ -11,7 +11,7 @@ import '../css/ViewItems.css';
 const ViewItems = () => {
   const [itemsList, setItemsList] = useState([]);
 
-  const [cart, setCart] = useState([]); // State to track the shopping cart
+  const [cart, setCart] = useState([]); 
 
   const itemsCollectionRef = collection(db, "items");
 
@@ -19,22 +19,25 @@ const ViewItems = () => {
     const getItemsList = async () => {
       try {
         const data = await getDocs(itemsCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setItemsList(filteredData);
+          const filteredData = data.docs
+          .map((doc) => ({ ...doc.data(), id: doc.id }))
+          .filter((item) => item.isAvailable);  
+        
+        setItemsList(filteredData); 
       } catch (err) {
         console.error("Error fetching items: ", err);
       }
     };
-
-    // Call the async function
+  
     getItemsList();
-  }, []); // Empty dependency array ensures this runs only once when component mounts
+  }, []);  
+  
 
-  const addToCart = (item) => {
-    setCart([...cart, item]); // Adds the selected item to the cart state
+  const addToCart = async (item) => {
+    const userDocRef = doc(db, 'users', currentUser.uid);
+    await updateDoc(userDocRef, {
+        items: arrayUnion(item.id),
+    });
     alert(`${item.name} has been added to your cart!`);
   };
 
