@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/AuthContext';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
+import '../css/Upload.scss';
 
 
 const AddItem = () => {
@@ -34,14 +35,6 @@ const AddItem = () => {
         timestamp: new Date(),
         imageURL: imageURL,
       });
-
-      // const userDocRef = doc(db, "users", currentUser.uid);
-
-      // await updateDoc(userDocRef, {
-      //   items: arrayUnion(newItemRef.id), 
-      // });
-
-
     } catch (err) {
       console.error(err);
     }
@@ -99,7 +92,6 @@ const AddItem = () => {
             onChange={(e) => {setItemImage(e.target.files[0])}}
           />
         </div>
-        {/* <button onClick={uploadImage}>Upload Image</button> */}
         <button onClick={uploadImage}>Add Item</button>
       </div>
     </div>

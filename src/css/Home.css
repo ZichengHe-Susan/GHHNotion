@@ -59,4 +59,31 @@
     }
 }
 
-  
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between buttons */
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: transparent; /* Transparent background */
+    color: white;
+    border: 2px solid white; /* White border for the button */
+    border-radius: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+
+button:hover {
+    background-color: white; /* On hover, the background becomes white */
+    color: black; /* Text turns black */
+    border-color: white; /* Keep the border white on hover */
+}

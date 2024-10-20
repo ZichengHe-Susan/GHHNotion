@@ -104,9 +104,8 @@ const Home = () => {
       <div class="button-container">
         <button onClick={handleUpload}>Add Item</button>
         <button onClick={() => setShowProfile(true)}>Profile</button> 
-        <button onClick={handleLogout}>Log Out</button>
         <button onClick={navigateCart}>Shopping Cart</button>
-        <ViewItems />
+        <button onClick={handleLogout}>Log Out</button>
       </div>
       <ViewItems />
 

@@ -71,16 +71,16 @@ const ViewItems = () => {
             <h1 className="itemTitle">{item.name}</h1>
             <p className="itemPrice">Price: ${item.price}</p>
             <div className="button-group">
-            <button
-              className="addToCartButton" 
-              onClick={() => addToCart(item)} 
-            >Add to Cart</button>
-            {currentUser && currentUser.uid === item.seller && ( 
-            <button className="deleteButton" onClick={() => deleteItem(item.id, item.imageURL || null)}>
-              Delete Item
-            </button>
-          )}
-          </div>
+              <button
+                className="addToCartButton" 
+                onClick={() => addToCart(item)} 
+                >Add to Cart</button>
+                {currentUser && currentUser.uid === item.seller && ( 
+                <button className="deleteButton" onClick={() => deleteItem(item.id, item.imageURL || null)}>
+                  Delete Item
+              </button>
+              )}
+            </div>
           </div>
           {item.imageURL ? (
             <div className="imageContainer">
