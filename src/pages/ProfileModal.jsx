@@ -14,6 +14,8 @@ const ProfileModal = ({ showProfile, handleClose }) => {
   const { currentUser, userData } = useAuth();
   const [userItems, setUserItems] = useState([]);
   const [activeTab, setActiveTab] = useState(0); // State to track active tab
+  const [itemBought, setItemBought] = useState(0);
+  const [itemSold, setItemSold] = useState(0);
 
   useEffect(() => {
     setOpen(showProfile);
@@ -25,20 +27,34 @@ const ProfileModal = ({ showProfile, handleClose }) => {
         try {
           const itemsCollectionRef = collection(db, 'items');
           const data = await getDocs(itemsCollectionRef);
-
-          const filteredItems = data.docs
-            .map((doc) => ({ ...doc.data(), id: doc.id }))
-            .filter((item) => item.seller === currentUser.uid);
-
-          setUserItems(filteredItems);
+  
+          const filteredItems = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  
+          let boughtCount = 0;
+          let soldCount = 0;
+  
+          filteredItems.forEach((item) => {
+            if (item.buyer === currentUser.uid) {
+              boughtCount += 1;
+            }
+            if (item.seller === currentUser.uid && item.buyer) {
+              soldCount += 1;
+            }
+          });
+  
+          setItemBought(boughtCount);  // Set the number of items bought
+          setItemSold(soldCount);  // Set the number of items sold
+  
+          setUserItems(filteredItems); // Store all items for the user
         } catch (err) {
           console.error('Error fetching user items:', err);
         }
       };
-
+  
       fetchUserItems();
     }
   }, [currentUser]);
+  
 
   if (!currentUser || !userData) {
     return null;
@@ -102,7 +118,7 @@ const ProfileModal = ({ showProfile, handleClose }) => {
                 Rehomed
             </div>
             <div className="modal-data">
-                5
+                {itemSold}
             </div>
             <div className="modal-description">
                 treasures
@@ -114,7 +130,7 @@ const ProfileModal = ({ showProfile, handleClose }) => {
                 Revived 
             </div>
             <div className="modal-data">
-                3
+                {itemBought}
             </div>
             <div className="modal-description">
             past pieces

@@ -109,9 +109,6 @@ const Home = () => {
         <button onClick={handleLogout}>Log Out</button>
       </div>
       <div className ="view-items-padding">
-      <header className="listing">
-        <h1>Explore All the Listed Items</h1>
-      </header>
       <ViewItems />
       </div>
 
