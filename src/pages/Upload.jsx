@@ -37,6 +37,7 @@ const AddItem = () => {
         timestamp: new Date(),
         imageURL: imageURL,
       });
+      alert("Item added successfully!");
     } catch (err) {
       console.error(err);
     }
