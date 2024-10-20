@@ -26,10 +26,10 @@
   flex-direction: column;
 }
 
-.itemTitle {
+/* .itemTitle {
   font-size: 1em; 
   margin: 0;
-}
+} */
 
 .itemPrice {
   font-size: 0.9em; 
@@ -85,4 +85,17 @@
 .deleteButton:hover {
   color: #fff;
   background-color: #c82333;
+}
+
+.itemTitle {
+  /* color: inherit;  */
+  text-decoration: none; /* Remove the underline */
+  font-size: 0.5em; /* Adjust font size to match h1 */
+  font-weight: bold;
+}
+
+/* Add hover effect if needed */
+.itemTitle:hover {
+  color: #0056b3; /* Optional: Change color on hover */
+  
 }

@@ -8,6 +8,7 @@ import { CartProvider } from './contexts/CartContext';
 import AddItem from './pages/Upload';
 import ViewItems from './pages/ViewItems';
 import ShoppingCart from './pages/ShoppingCart';
+import ItemDetails from './pages/ItemDetail';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/upload" element={<AddItem />} />
           <Route path="/items" element={<ViewItems />} />
           <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/item/:id" element={<ItemDetails />} />
         </Routes>
         </CartProvider>
       </AuthProvider>

@@ -1,0 +1,28 @@
+.item-details-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .item-details-container h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
+  }
+  
+  .item-details-container p {
+    margin: 10px 0;
+    font-size: 1.2em;
+  }
+  
+  .item-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
