@@ -1,0 +1,113 @@
+/* Base font and color scheme */
+body, h1, p {
+    font-family: 'Arial', sans-serif; /* This should match your homepage font */
+    color: rgb(0, 0, 0); /* Assuming a dark theme based on the homepage */
+  }
+
+  .shopping-cart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  /* Background for consistency */
+  .shopping-cart {
+    background-color: rgb(255, 255, 255); /* Semi-transparent black for overlay feel */
+    padding: 20px;
+    width: 70%;
+  }
+
+  .item-info {
+    display: flex;   /* Align children (image and text) in a row */
+    align-items: center; /* Center align items vertically */
+    flex-grow: 1; /* Allows the item info to take up all available space pushing actions to the end */
+  }
+
+  .item-image {
+    width: 60px;  /* Adjust the size as needed */
+    height: 60px;
+    display: block;
+    margin-right: 10px;
+    border-radius: 5px;  
+  }
+  
+  /* Styling for the cart items */
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(48, 48, 48, 0.1);
+    border-radius: 5px;
+    width: 50%;  /* Set the width to half of the parent container */ 
+    margin-right: 0;
+  }
+
+  .item-title {
+    font-weight: bold; /* Optional: Make the title stand out */
+  }
+
+  .item-price {
+    font-weight: bold;
+    margin-right: 20px;
+    color: #000000; /* Optional: Different color for price */
+    text-align: right;
+    flex-grow: 1;
+  }
+  
+  .item-remove {
+    padding: 5px 10px;
+    background-color: #4CAF50; /* Green button for actions */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .cart-item h2, .cart-item p {
+    margin: 0.5rem 0;
+  }
+
+  .cart-summary {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+  }
+
+  .summary-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  /* Checkout button */
+  .checkout-button {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .shopping-cart-container {
+      flex-direction: column;
+    }
+    .shopping-cart, .cart-summary {
+      flex: 0 0 auto;
+    }
+  }
+  
+  .empty-cart {
+    text-align: center;
+    padding: 20px;
+  }
+  
