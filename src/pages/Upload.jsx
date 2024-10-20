@@ -13,6 +13,7 @@ const AddItem = () => {
   const [newItemPrice, setItemPrice] = useState(0)
   const [isItemAvailable, setIsItemAvailable] = useState(true)
   const [newItemDescription, setItemDescription] = useState("")
+  const [newLocationDet, setLocationDet] = useState("")
   const navigate = useNavigate(); 
 
   useEffect(() => {
@@ -81,6 +82,10 @@ const AddItem = () => {
         <input 
           placeholder="Description of Item..." 
           onChange={(e) => setItemDescription(e.target.value)}
+        />
+        <input 
+          placeholder="Pickup or Dropoff Details..." 
+          onChange={(e) => setLocationDet(e.target.value)}
         />
         <div>
           {/* <input 

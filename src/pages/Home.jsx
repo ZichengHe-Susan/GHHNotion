@@ -93,12 +93,13 @@ const Home = () => {
         <h1>Welcome to the UVA Thrift Store</h1>
       </header>
 
-      <div>
+      <div class="button-container">
         <button onClick={handleUpload}>Add Item</button>
         <button onClick={() => setShowProfile(true)}>Profile</button> 
         <button onClick={handleLogout}>Log Out</button>
-        <ViewItems />
+        
       </div>
+      <ViewItems />
 
       {/* {selectedItem ? (
         <DetailedItem item={selectedItem} />

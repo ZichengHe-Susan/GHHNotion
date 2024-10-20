@@ -88,11 +88,7 @@ const ViewItems = () => {
             </div>
           ) : (
             <p>No image available</p>
-          )}
-          {/* <button className="addToCartButton" onClick={() => addToCart(item)}>
-            Add to Cart
-          </button> */}
-          
+          )}          
         </div>
       ))}
     </div>
