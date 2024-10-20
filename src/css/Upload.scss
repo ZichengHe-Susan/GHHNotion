@@ -1,0 +1,150 @@
+// General styling for the page scoped to the AddItem page
+#add-item-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; // Full-height layout to center vertically
+    width: 100%; // Full-width container
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative; // Relative positioning for the Home button to be placed absolutely
+    
+    background-image: url('../assets/old-cabell.jpg'); // Correct path to the image
+    background-size: cover; // Ensure the image covers the entire area
+    background-position: center; // Center the image
+    background-repeat: no-repeat; // Avoid repeating the background
+    
+    // Navbar (Home button) positioned at the top left
+    .navbar {
+      position: absolute; // Absolute positioning for the Home button
+      top: 20px;
+      left: 20px; // Positions the Home button in the top-left corner
+      z-index: 1000; // Ensures it stays on top of the content
+  
+      .nav-link {
+        color: #000000;
+        font-size: 1.1em;
+        text-decoration: none;
+        padding: 8px 15px;
+        background-color: #ffffffd2;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #ffffffe5;
+        }
+      }
+    }
+  
+    // Styling the container that holds everything except the "Home" button
+    .add-item-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 800px; // Reduce the max-width for better layout control
+      padding: 20px;
+      background-color: #00000069;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+  
+      // Form container
+      .form-container {
+        width: 100%; // Full width for form container
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+  
+        // Styling the form inputs with box-sizing to avoid overflow
+        input,
+        textarea,
+        select {
+          padding: 10px;
+          font-size: 1em;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          width: 100%; // Ensure input fields fit within the box
+          box-sizing: border-box; // Ensures the input fields do not overflow
+          transition: border-color 0.3s ease;
+  
+          &:focus {
+            border-color: #0056b3;
+            outline: none;
+          }
+        }
+  
+        // Ensure description and location boxes have proper sizing
+        textarea {
+          padding: 10px;
+          font-size: 1em;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          width: calc(100% - 20px); // Keep within the container
+          box-sizing: border-box;
+          resize: vertical; // Allow users to resize the textarea vertically
+          transition: border-color 0.3s ease;
+
+          &:focus {
+            border-color: #0056b3;
+            outline: none;
+          }
+        }
+
+        .description-textarea {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%; // Ensure it fits the container
+            box-sizing: border-box; // Ensure padding is included in the element's total width
+            height: 150px; // Adjust the height as needed to make the box larger
+            transition: border-color 0.3s ease;
+          
+            &:focus {
+              border-color: #0056b3;
+              outline: none;
+            }
+
+            &::placeholder {
+                text-align: left; // Align text to the left
+                vertical-align: top; // Align text to the top
+            }
+            
+          }
+
+        // Button styling
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: transparent; /* Transparent background */
+            color: white;
+            border: 2px solid white; /* Black border for the button */
+            border-radius: 5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth transitions */
+        }
+        
+        button:hover {
+            background-color: white; /* On hover, the background becomes black */
+            color: black; /* Text turns white */
+            border-color: white; /* Keep the border black on hover */
+        }
+      }
+    }
+  
+    // Responsive layout for smaller devices
+    @media (max-width: 768px) {
+      .add-item-container {
+        width: 90%; // Adjust the container width on smaller screens
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .add-item-container {
+        width: 100%; // Full width for mobile
+      }
+    }
+}

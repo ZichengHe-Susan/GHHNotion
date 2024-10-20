@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { db, storage } from "../firebase";
-import { getDocs, collection, addDoc , updateDoc, arrayUnion, doc} from 'firebase/firestore';
+import { getDocs, collection, addDoc, updateDoc, arrayUnion, doc } from 'firebase/firestore';
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/AuthContext';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import '../css/Upload.scss';
 
-
 const AddItem = () => {
   const { currentUser, userData } = useAuth();
-  const [newItemName, setItemName] = useState("")
-  const [newItemPrice, setItemPrice] = useState(0)
-  const [isItemAvailable, setIsItemAvailable] = useState(true)
-  const [newItemDescription, setItemDescription] = useState("")
-  const [newLocationDet, setLocationDet] = useState("")
-  const navigate = useNavigate(); 
+  const [newItemName, setItemName] = useState("");
+  const [newItemPrice, setItemPrice] = useState("");
+  const [isItemAvailable, setIsItemAvailable] = useState(true);
+  const [newItemDescription, setItemDescription] = useState("");
+  const [newLocationDet, setLocationDet] = useState("");
+  const [itemImage, setItemImage] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false); // Track if form is submitted
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!currentUser) {
@@ -38,64 +39,97 @@ const AddItem = () => {
     } catch (err) {
       console.error(err);
     }
-    
   };
 
-  const [itemImage, setItemImage] = useState(null);
   const uploadImage = async () => {
-    if (itemImage == null) return;
+    setIsSubmitted(true); // Set the form as submitted when clicking "Add Item"
+
+    // Validate form fields
+    if (!newItemName || !newItemPrice || !newItemDescription || !newLocationDet || !itemImage) {
+      alert("Please fill in all the fields.");
+      return;
+    }
 
     const imageRef = ref(storage, `${currentUser.uid}/${itemImage.name + v4()}`);
+    try {
+      await uploadBytes(imageRef, itemImage);
+      const imageURL = await getDownloadURL(imageRef);
+      await onSubmitItem(imageURL);
 
-    await uploadBytes(imageRef, itemImage);
-    const imageURL = await getDownloadURL(imageRef);
-    onSubmitItem(imageURL);
-    alert("Image uploaded!");
+      // Reset form fields
+      setItemImage(null);
+      setItemName('');
+      setItemPrice('');
+      setItemDescription('');
+      setLocationDet('');
+
+      // Optionally navigate back to homepage
+      navigate('/'); // Redirect to homepage after submission
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert("Failed to upload image. Please try again.");
+    }
   };
 
   return (
-
-    <div className="add-item-container">
-      {/* Navbar */}
+    <div id="add-item-page">
       <nav className="navbar">
         <Link to="/" className="nav-link">Home</Link>
       </nav>
 
-      {/* Form to Add Item */}
-      <div className="form-container">
-        <input 
-          placeholder="Item Name..." 
-          onChange={(e) => setItemName(e.target.value)}
-        />
-        <input 
-          placeholder="List Price..." 
-          type="number"
-          onChange={(e) => setItemPrice(Number(e.target.value))}
-        />
-        <input 
-          placeholder="Description of Item..." 
-          onChange={(e) => setItemDescription(e.target.value)}
-        />
-        <input 
-          placeholder="Pickup or Dropoff Details..." 
-          onChange={(e) => setLocationDet(e.target.value)}
-        />
-        <div>
-          {/* <input 
-            type="checkbox" 
-            checked={isItemAvailable}
-            onChange={(e) => setIsItemAvailable(e.target.checked)}
+      <div className="add-item-container">
+        <div className="form-container">
+          {/* Name Input */}
+          <input
+            placeholder="Item Name..."
+            onChange={(e) => setItemName(e.target.value)}
+            value={newItemName}
+            className={isSubmitted && !newItemName ? 'invalid' : ''}
+            required
           />
-          <label>Available</label> */}
-          <input 
+
+          {/* Price Input */}
+          <input
+            placeholder="$0"
+            type="number"
+            onChange={(e) => setItemPrice(Number(e.target.value))}
+            value={newItemPrice}
+            className={isSubmitted && !newItemPrice ? 'invalid' : ''}
+            required
+          />
+
+          {/* Description Input */}
+          <textarea
+            className={`description-textarea ${isSubmitted && !newItemDescription ? 'invalid' : ''}`}
+            placeholder="Description of Item..."
+            onChange={(e) => setItemDescription(e.target.value)}
+            value={newItemDescription}
+            required
+          />
+
+          {/* Location Input */}
+          <input
+            placeholder="Pickup or Dropoff Details..."
+            onChange={(e) => setLocationDet(e.target.value)}
+            value={newLocationDet}
+            className={isSubmitted && !newLocationDet ? 'invalid' : ''}
+            required
+          />
+
+          {/* File Input */}
+          <input
             type="file"
-            onChange={(e) => {setItemImage(e.target.files[0])}}
+            onChange={(e) => setItemImage(e.target.files[0])}
+            className={isSubmitted && !itemImage ? 'invalid' : ''}
+            required
           />
+
+          {/* Submit Button */}
+          <button onClick={uploadImage}>Add Item</button>
         </div>
-        <button onClick={uploadImage}>Add Item</button>
       </div>
     </div>
   );
 };
 
-export default AddItem
+export default AddItem;
