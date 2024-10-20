@@ -70,7 +70,6 @@ const ViewItems = () => {
     <div>
       <div className="container">
         <h2 className="shopHeader">Items Available in the Shop</h2>
-        
       </div>
         
       <div className="container">

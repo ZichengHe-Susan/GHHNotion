@@ -32,6 +32,33 @@
   margin: 0;
 } */
 
+.itemTitle {
+  color: inherit;
+  text-decoration: none;
+  font-size: 1em; /* Ensure the font size is appropriate */
+  font-weight: bold;
+  margin: 0;
+  padding: 0; /* Remove padding if it is applied */
+  display: inline; /* Make sure it's treated as an inline element */
+}
+
+/* Optional: Add hover effect */
+.itemTitle:hover {
+  color: #000000;
+}
+
+/* Additional styling for the h1 inside the textContainer, if needed */
+.textContainer h1 {
+  margin: 0; /* Ensure there's no additional margin */
+  padding: 0; /* Ensure there's no additional padding */
+  font-size: 1.2em; /* Adjust font size as needed */
+  font-weight: bold;
+}
+
+.textContainer h1:hover {
+  color: #0056b3;
+}
+
 .itemPrice {
   font-size: 0.9em; 
   margin: 5px 0; 
@@ -40,7 +67,7 @@
 
 .imageContainer {
   width: 100%;
-  height: 160px; /* You can adjust the height as needed */
+  height: 140px; /* You can adjust the height as needed */
   overflow: hidden; /* Ensures that any overflow from the image is hidden */
   display: flex;
   justify-content: center;
@@ -85,18 +112,4 @@
   background-color: #232d4b; 
   color: white;
   border-color: #232d4b; 
-}
-
-
-.itemTitle {
-  /* color: inherit;  */
-  text-decoration: none; /* Remove the underline */
-  font-size: 0.5em; /* Adjust font size to match h1 */
-  font-weight: bold;
-}
-
-/* Add hover effect if needed */
-.itemTitle:hover {
-  color: #0056b3; /* Optional: Change color on hover */
-  
 }
