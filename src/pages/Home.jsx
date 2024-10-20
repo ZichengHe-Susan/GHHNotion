@@ -9,6 +9,7 @@ import backgroundImage from '../assets/old-cabell.jpg';
 import '../css/Home.css';
 import ProfileModal from './ProfileModal';
 import ViewItems from './ViewItems';
+import Copyright from '../components/Copyright';
 
 const Home = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -107,7 +108,12 @@ const Home = () => {
         <button onClick={navigateCart}>Shopping Cart</button>
         <button onClick={handleLogout}>Log Out</button>
       </div>
+      <div className ="view-items-padding">
+      <header className="listing">
+        <h1>Explore All the Listed Items</h1>
+      </header>
       <ViewItems />
+      </div>
 
       {/* {selectedItem ? (
         <DetailedItem item={selectedItem} />
@@ -116,6 +122,7 @@ const Home = () => {
           <Item key={item.id} {...item} onClick={() => handleSelectItem(item)} />
         ))
       )} */}
+      <Copyright/>
 
       <ProfileModal showProfile={showProfile} handleClose={() => setShowProfile(false)} />
     </div>

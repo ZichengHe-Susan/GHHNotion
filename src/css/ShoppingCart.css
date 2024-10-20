@@ -93,12 +93,16 @@ body, h1, p {
   }
   
   .item-remove {
+    border: 1.5px solid #000000; /* Border for the button */
     padding: 5px 10px;
-    background-color: #8d8d8d; /* Green button for actions */
-    color: white;
-    border: none;
-    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    
     cursor: pointer;
+    &:hover {
+      background-color: #000000; /* Change the background color on hover */
+      color: white; /* Change the text color on hover */
+      border: 1.5px solid #000000;
+    }
   }
 
   .cart-item h2, .cart-item p {
