@@ -60,10 +60,12 @@ body, h1, p {
   }
 
   .item-image {
-    width: 60px;  /* Adjust the size as needed */
+    min-width: 100px; 
+    max-width: 100px;
     height: 60px;
     display: block;
     margin-right: 10px;
+    margin-bottom: 20px;
     border-radius: 5px;  
   }
   
