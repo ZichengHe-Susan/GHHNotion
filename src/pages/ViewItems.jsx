@@ -78,7 +78,7 @@ const ViewItems = () => {
           <div key={item.id} className="itemBox">
             <div className="textContainer">
               <Link to={`/item/${item.id}`} className="itemTitle">
-                <h1>{item.name}</h1>
+                <h1 className="itemNameShop">{item.name}</h1>
               </Link> 
               {/* <h1 className="itemTitle">{item.name}</h1> */}
               <p className="itemPrice">Price: ${item.price}</p>
